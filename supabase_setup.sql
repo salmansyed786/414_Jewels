@@ -108,3 +108,10 @@ on conflict do nothing;
 -- insert into public.admins(user_id)
 -- values ('YOUR_AUTH_USER_UUID')
 -- on conflict do nothing;
+grant usage on schema public to anon, authenticated;
+
+grant select on public.products to anon, authenticated;
+
+grant insert, update, delete on public.products to authenticated;
+
+grant execute on function public.is_admin() to anon, authenticated;
