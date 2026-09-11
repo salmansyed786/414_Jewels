@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="414 Jewels — curated jewelry and accessories." />
+  <title>414 Jewels</title>
+  <style>
+:root{
+  --bg:#f8f5ef;--paper:#fffdfa;--ink:#1a1a1a;--muted:#6e6a63;
+  --gold:#b59456;--line:#ddd6c8;--danger:#a43c35;--success:#276749;
+  --shadow:0 14px 40px rgba(34,28,20,.08);--radius:18px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+.wrap{width:min(1160px,92%);margin:auto}
+.topbar{background:#171717;color:white;text-align:center;padding:9px 16px;font-size:13px;letter-spacing:.06em}
+header{position:sticky;top:0;z-index:50;background:rgba(248,245,239,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(181,148,86,.18)}
+.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{font-family:Georgia,serif;font-size:25px;letter-spacing:.16em}
+.brand small{display:block;font-family:Inter,sans-serif;font-size:9px;letter-spacing:.28em;color:var(--muted);margin-top:2px;text-align:center}
+nav{display:flex;gap:24px;font-size:14px}.nav-actions,.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--ink);font-weight:650;transition:.2s ease;cursor:pointer;background:transparent}
+.btn-dark{background:var(--ink);color:white}.btn-gold{background:var(--gold);border-color:var(--gold);color:white}.btn:hover{transform:translateY(-1px);opacity:.94}.full{width:100%}
+.hero{padding:82px 0 60px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{font-size:12px;letter-spacing:.23em;text-transform:uppercase;color:var(--gold);font-weight:750}
+h1,h2,h3{font-family:Georgia,serif;font-weight:500;margin:0}h1{font-size:clamp(48px,7vw,82px);line-height:.98;letter-spacing:-.03em;margin:16px 0 24px}
+.hero p{font-size:18px;color:var(--muted);max-width:610px;margin:0 0 28px}
+.hero-card{min-height:530px;border-radius:32px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.9),transparent 30%),linear-gradient(135deg,#e9e0d0,#c9ad77 58%,#8c6c37);box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:30px}
+.hero-card:before{content:"414";position:absolute;right:-15px;top:-35px;font-family:Georgia,serif;font-size:220px;color:rgba(255,255,255,.15);line-height:1}
+.hero-card .tag{background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7);border-radius:18px;padding:18px 20px;max-width:310px}
+.hero-card .tag strong{font-family:Georgia,serif;font-size:22px}.hero-card .tag div{margin-top:5px;color:#6c624f;font-size:14px}
+.section{padding:70px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.section-head h2{font-size:38px}.section-head p{margin:0;color:var(--muted);max-width:580px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.filter-btn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 15px;cursor:pointer}.filter-btn.active{background:var(--ink);color:white;border-color:var(--ink)}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.product{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 28px rgba(34,28,20,.05)}
+.photo{aspect-ratio:1/1;background:linear-gradient(145deg,#f0ebe2,#d8c5a2);display:grid;place-items:center;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.photo.placeholder:after{content:"PHOTO COMING SOON";font-size:11px;letter-spacing:.15em;color:#76654a;border:1px solid rgba(118,101,74,.35);padding:8px 10px;border-radius:999px}
+.product-body{padding:19px}.product-title{font-family:Georgia,serif;font-size:21px}.price-line{display:flex;gap:9px;align-items:baseline;margin:6px 0 9px}.price{font-weight:800}.compare{text-decoration:line-through;color:#9b958d;font-size:13px}.details{font-size:13px;color:var(--muted);min-height:38px}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.badge{font-size:11px;border:1px solid var(--line);padding:4px 7px;border-radius:999px;color:var(--muted)}.product .btn{width:100%;margin-top:14px}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;background:#191919;color:white;border-radius:26px;padding:36px}.trust h3{font-size:20px;margin-bottom:6px}.trust p{color:#c9c7c2;margin:0;font-size:14px}
+.order{display:grid;grid-template-columns:.8fr 1.2fr;gap:34px;align-items:start}.order-copy{background:#1c1b19;color:white;border-radius:26px;padding:34px;position:sticky;top:110px}.order-copy h2{font-size:38px;margin:12px 0 14px}.order-copy p{color:#cbc7bf}.order-copy ol{padding-left:18px;color:#e5e0d8}.selected-product{background:#2c2a26;border:1px solid #4a463e;padding:12px 14px;border-radius:12px;margin-top:18px}
+.form-card{background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow);min-height:850px}iframe{width:100%;height:900px;border:0;background:transparent}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}.about-box{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:36px}.about h2{font-size:38px;margin-bottom:14px}.about p{color:var(--muted)}.about h3{font-size:27px;margin-bottom:14px}
+footer{border-top:1px solid var(--line);padding:34px 0 50px;color:var(--muted);font-size:14px}.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.status,.empty{text-align:center;padding:34px;color:var(--muted)}.hidden{display:none!important}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px}.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px)}.modal-panel{position:relative;z-index:1;background:var(--paper);width:min(920px,100%);max-height:90vh;overflow:auto;border-radius:24px;box-shadow:0 25px 80px rgba(0,0,0,.25);padding:24px}.modal-close{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:32px;cursor:pointer}.modal-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:start}.modal-image{aspect-ratio:1/1;border-radius:18px;background:linear-gradient(145deg,#f0ebe2,#d8c5a2);background-size:cover;background-position:center}.modal-price{font-size:23px;font-weight:800;margin:8px 0}.stock{margin:12px 0;color:var(--muted)}.option-row{margin:14px 0}.option-row strong{display:block;margin-bottom:6px}.option-values{display:flex;flex-wrap:wrap;gap:6px}.option-pill{border:1px solid var(--line);background:white;padding:6px 9px;border-radius:999px;font-size:12px}
+
+/* Admin */
+.admin-body{min-height:100vh}.admin-shell{width:min(1280px,94%);margin:38px auto 70px}.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.admin-login{width:min(480px,100%);margin:9vh auto;padding:32px}.admin-title{font-size:42px;margin:8px 0 18px}.admin-login p{color:var(--muted)}label{display:block;font-weight:650;font-size:13px;margin:14px 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:white;padding:11px 12px;outline:none;color:var(--ink)}input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(181,148,86,.12)}.small-link{display:inline-block;margin-top:18px;font-size:13px;color:var(--muted)}.form-message{min-height:20px;font-size:13px;margin-top:9px}.notice{padding:12px 14px;border-radius:12px;margin:12px 0}.warning{background:#fff7dc;border:1px solid #ead89b;color:#6f5b15}.notice.success{background:#e9f7ef;border:1px solid #b8dfc7;color:#245b39}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px}.admin-topbar .admin-title{margin:6px 0 0}.admin-grid{display:grid;grid-template-columns:420px 1fr;gap:20px;align-items:start}.editor-card{padding:24px;position:sticky;top:20px}.editor-head,.manager-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.editor-head h2,.product-manager h2{font-size:28px}.text-btn{border:0;background:transparent;text-decoration:underline;cursor:pointer;color:var(--muted)}.admin-form .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option-box{background:#f4efe6;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:16px}.option-box h3{font-size:18px}.option-box p{font-size:12px;color:var(--muted);margin:4px 0 8px}.checks{display:flex;gap:18px;margin:16px 0}.checks label{display:flex;gap:7px;align-items:center;margin:0}.checks input{width:auto}.product-manager{padding:24px}.manager-head{margin-bottom:14px}.manager-head p{color:var(--muted);font-size:13px;margin:4px 0 0}.search{max-width:240px}.admin-products{display:grid;gap:10px}.admin-product{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:white}.admin-thumb{width:72px;height:72px;border-radius:10px;background:linear-gradient(145deg,#f0ebe2,#d8c5a2);background-size:cover;background-position:center}.admin-product h3{font-family:Inter,sans-serif;font-size:15px;font-weight:750}.admin-product p{margin:3px 0;color:var(--muted);font-size:12px}.admin-actions{display:flex;gap:7px}.mini-btn{border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:7px 10px;cursor:pointer}.mini-btn.danger{color:var(--danger);border-color:#e5c3c0}
+@media(max-width:1000px){nav{display:none}.hero,.order,.about,.admin-grid{grid-template-columns:1fr}.editor-card{position:static}.hero{padding-top:50px}.products{grid-template-columns:repeat(2,1fr)}.order-copy{position:static}.modal-grid{grid-template-columns:1fr}.trust{grid-template-columns:1fr}}
+@media(max-width:640px){.nav{min-height:66px}.brand{font-size:19px}.nav-actions .btn:first-child{display:none}.section{padding:50px 0}.section-head,.admin-topbar,.manager-head{align-items:flex-start;flex-direction:column}.products{grid-template-columns:1fr}h1{font-size:50px}.hero-card{min-height:340px}.form-card iframe{height:980px}.footer-row{align-items:flex-start;flex-direction:column}.admin-form .two{grid-template-columns:1fr}.admin-product{grid-template-columns:58px 1fr}.admin-thumb{width:58px;height:58px}.admin-actions{grid-column:1/-1}.search{max-width:none}.checks{flex-direction:column;gap:4px}}
+
+</style>
+</head>
+<body>
+  <div class="topbar">MILWAUKEE-AREA JEWELRY & ACCESSORIES • SHIPPING AVAILABLE</div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">414 JEWELS<small>JEWELRY & ACCESSORIES</small></a>
+      <nav>
+        <a href="#shop">Shop</a>
+        <a href="#order">Order</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn" href="https://instagram.com/414_jewels" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-dark" href="#order">Order Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow">Curated. Giftable. Everyday.</div>
+        <h1>Jewelry that makes the whole look.</h1>
+        <p>Shop chains, bangles, rings, and statement glasses through 414 Jewels. Browse the collection, choose your piece, and send us an order request in minutes.</p>
+        <div class="row">
+          <a class="btn btn-dark" href="#shop">Browse Collection</a>
+          <a class="btn" href="#order">Submit Order Request</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="tag">
+          <strong>New collection coming in.</strong>
+          <div>Replace this area later with your strongest jewelry photo.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Current collection</div>
+            <h2>Shop 414 Jewels</h2>
+          </div>
+          <p>Products, prices, stock, photos, and options on this page can all be managed from the private admin page.</p>
+        </div>
+
+        <div class="filters" id="categoryFilters"></div>
+        <div id="loading" class="status">Loading collection…</div>
+        <div class="products" id="productGrid"></div>
+        <div id="emptyState" class="empty hidden">No products are currently available in this category.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap trust">
+        <div><h3>Local & responsive</h3><p>Order requests are reviewed personally before payment is finalized.</p></div>
+        <div><h3>Carefully checked</h3><p>Every piece can be checked and packaged before it leaves your hands.</p></div>
+        <div><h3>Simple ordering</h3><p>Customers can browse from Instagram and submit exactly what they want.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="order">
+      <div class="wrap order">
+        <div class="order-copy">
+          <div class="eyebrow">How ordering works</div>
+          <h2>See it. Request it. Confirm it.</h2>
+          <p>This version uses an order request instead of automatic checkout, so you can confirm stock and the total before accepting payment.</p>
+          <ol>
+            <li>Choose a product from the website or Instagram.</li>
+            <li>Submit the order request.</li>
+            <li>You confirm stock, price, shipping/pickup, and payment.</li>
+            <li>After payment, you pack and fulfill the order.</li>
+          </ol>
+          <div id="selectedProduct" class="selected-product hidden"></div>
+        </div>
+
+        <div class="form-card">
+          <iframe
+            src="https://tally.so/embed/NpaoYb?alignLeft=1&hideTitle=0&transparentBackground=1&dynamicHeight=1"
+            title="414 Jewels Order Request"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap about">
+        <div class="about-box">
+          <div class="eyebrow">About 414 Jewels</div>
+          <h2>Everyday pieces with a polished look.</h2>
+          <p>414 Jewels is a Milwaukee-area jewelry and accessories shop focused on wearable pieces that feel elevated without making ordering complicated.</p>
+          <p>We’re starting small on purpose: curating pieces, confirming availability personally, and growing around what customers actually love.</p>
+        </div>
+        <div class="about-box">
+          <h3>Follow the collection</h3>
+          <p>New arrivals, product videos, try-ons, restocks, and launch updates will be posted on Instagram.</p>
+          <a class="btn btn-gold" href="https://instagram.com/414_jewels" target="_blank" rel="noopener">@414_jewels</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div>© <span id="year"></span> 414 Jewels. All rights reserved.</div>
+      <div><a href="https://instagram.com/414_jewels" target="_blank" rel="noopener">@414_jewels</a></div>
+    </div>
+  </footer>
+
+  <div class="modal hidden" id="productModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div class="modal-grid">
+        <div class="modal-image" id="modalImage"></div>
+        <div>
+          <div class="eyebrow" id="modalCategory"></div>
+          <h2 id="modalName"></h2>
+          <div class="modal-price" id="modalPrice"></div>
+          <p id="modalDescription"></p>
+          <div id="modalOptions"></div>
+          <div class="stock" id="modalStock"></div>
+          <button class="btn btn-dark full" id="modalOrderBtn">Order / Inquire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+// 414 Jewels configuration
+// Leave these blank to use local demo mode.
+// For the real live admin system, create a Supabase project and paste its values here.
+window.JEWELS_CONFIG = {
+  supabaseUrl: "",
+  supabaseAnonKey: "",
+  instagramUrl: "https://instagram.com/414_jewels",
+  orderFormUrl: "https://tally.so/r/NpaoYb"
+};
+
+</script>
+  <script>
+(() => {
+  const cfg = window.JEWELS_CONFIG || {};
+  const useSupabase = !!(cfg.supabaseUrl && cfg.supabaseAnonKey && window.supabase);
+  const client = useSupabase ? window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey) : null;
+  const storageKey = "414_jewels_products_v2";
+
+  const seed = [
+    {
+      id:"demo-1",name:"Gold Rope Chain",category:"Chains",sku:"RP-G-001",price:35,compare_at_price:null,
+      description:"Classic rope chain with a polished gold-tone finish.",image_url:"",
+      stock_qty:5,active:true,featured:true,sort_order:1,
+      finishes:["Gold"],lengths:['18"','20"','22"','24"'],widths:["3 mm","4 mm"],sizes:[]
+    },
+    {
+      id:"demo-2",name:"Classic Bangle",category:"Bangles",sku:"BG-001",price:40,compare_at_price:null,
+      description:"Polished bangle made for stacking or wearing on its own.",image_url:"",
+      stock_qty:4,active:true,featured:true,sort_order:2,
+      finishes:["Gold","Silver"],lengths:[],widths:[],sizes:["Small","Medium","Large"]
+    },
+    {
+      id:"demo-3",name:"Rimless Fashion Glasses",category:"Glasses",sku:"GL-001",price:45,compare_at_price:55,
+      description:"Statement rimless fashion frame with a clean luxury look.",image_url:"",
+      stock_qty:3,active:true,featured:true,sort_order:3,
+      finishes:["Gold","Silver"],lengths:[],widths:[],sizes:[]
+    }
+  ];
+
+  let allProducts = [];
+  let currentCategory = "All";
+
+  const $ = s => document.querySelector(s);
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  const money = value => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(value||0));
+
+  function localProducts() {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) {
+      localStorage.setItem(storageKey, JSON.stringify(seed));
+      return seed;
+    }
+    try { return JSON.parse(raw); } catch { return seed; }
+  }
+
+  async function loadProducts() {
+    $("#loading").classList.remove("hidden");
+    try {
+      if (useSupabase) {
+        const { data, error } = await client
+          .from("products")
+          .select("*")
+          .eq("active", true)
+          .order("sort_order", { ascending: true })
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        allProducts = data || [];
+      } else {
+        allProducts = localProducts()
+          .filter(p => p.active)
+          .sort((a,b) => (a.sort_order||0)-(b.sort_order||0));
+      }
+      renderFilters();
+      renderProducts();
+    } catch (err) {
+      console.error(err);
+      $("#loading").textContent = "Could not load the collection.";
+    } finally {
+      $("#loading").classList.add("hidden");
+    }
+  }
+
+  function renderFilters() {
+    const cats = ["All", ...new Set(allProducts.map(p=>p.category).filter(Boolean))];
+    $("#categoryFilters").innerHTML = cats.map(cat =>
+      `<button class="filter-btn ${cat===currentCategory?"active":""}" data-cat="${esc(cat)}">${esc(cat)}</button>`
+    ).join("");
+    document.querySelectorAll(".filter-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        currentCategory = btn.dataset.cat;
+        renderFilters();
+        renderProducts();
+      });
+    });
+  }
+
+  function optionSummary(p) {
+    const bits = [];
+    if (p.finishes?.length) bits.push(p.finishes.join(" / "));
+    if (p.lengths?.length) bits.push(p.lengths.slice(0,3).join(", ") + (p.lengths.length>3?"…":""));
+    if (p.sizes?.length) bits.push("Sizes: " + p.sizes.slice(0,3).join(", "));
+    return bits.join(" • ");
+  }
+
+  function renderProducts() {
+    const visible = allProducts.filter(p => currentCategory==="All" || p.category===currentCategory);
+    $("#emptyState").classList.toggle("hidden", visible.length>0);
+    $("#productGrid").innerHTML = visible.map(p => {
+      const photoStyle = p.image_url ? `style="background-image:url('${esc(p.image_url)}')"` : "";
+      const badges = [];
+      if (p.stock_qty != null) badges.push(`<span class="badge">${Number(p.stock_qty)>0 ? `${p.stock_qty} in stock` : "Sold out"}</span>`);
+      if (p.featured) badges.push(`<span class="badge">Featured</span>`);
+      return `
+        <article class="product">
+          <div class="photo ${p.image_url?"":"placeholder"}" ${photoStyle}></div>
+          <div class="product-body">
+            <div class="product-title">${esc(p.name)}</div>
+            <div class="price-line">
+              <span class="price">${money(p.price)}</span>
+              ${p.compare_at_price ? `<span class="compare">${money(p.compare_at_price)}</span>` : ""}
+            </div>
+            <div class="details">${esc(optionSummary(p) || p.description || "")}</div>
+            <div class="badges">${badges.join("")}</div>
+            <button class="btn btn-dark product-view" data-id="${esc(p.id)}" ${Number(p.stock_qty)===0?"disabled":""}>
+              ${Number(p.stock_qty)===0 ? "Sold Out" : "View Options"}
+            </button>
+          </div>
+        </article>`;
+    }).join("");
+
+    document.querySelectorAll(".product-view").forEach(btn=>{
+      btn.addEventListener("click",()=>openProduct(btn.dataset.id));
+    });
+  }
+
+  function optionRow(label, arr) {
+    if (!Array.isArray(arr) || !arr.length) return "";
+    return `<div class="option-row"><strong>${esc(label)}</strong><div class="option-values">${arr.map(x=>`<span class="option-pill">${esc(x)}</span>`).join("")}</div></div>`;
+  }
+
+  function openProduct(id) {
+    const p = allProducts.find(x => String(x.id)===String(id));
+    if (!p) return;
+    $("#modalCategory").textContent = p.category || "";
+    $("#modalName").textContent = p.name || "";
+    $("#modalPrice").innerHTML = `${money(p.price)} ${p.compare_at_price?`<span class="compare">${money(p.compare_at_price)}</span>`:""}`;
+    $("#modalDescription").textContent = p.description || "";
+    $("#modalOptions").innerHTML =
+      optionRow("Finish / color", p.finishes) +
+      optionRow("Length", p.lengths) +
+      optionRow("Width", p.widths) +
+      optionRow("Size", p.sizes);
+    $("#modalStock").textContent = p.stock_qty == null ? "" : `${p.stock_qty} currently in stock`;
+    $("#modalImage").style.backgroundImage = p.image_url ? `url("${p.image_url}")` : "";
+    $("#modalOrderBtn").onclick = () => {
+      $("#productModal").classList.add("hidden");
+      $("#productModal").setAttribute("aria-hidden","true");
+      $("#selectedProduct").classList.remove("hidden");
+      $("#selectedProduct").innerHTML = `<strong>Selected:</strong> ${esc(p.name)}${p.sku?` <span style="opacity:.7">(${esc(p.sku)})</span>`:""}<br><small>Enter this product name/item code in the order form.</small>`;
+      document.querySelector("#order").scrollIntoView({behavior:"smooth"});
+    };
+    $("#productModal").classList.remove("hidden");
+    $("#productModal").setAttribute("aria-hidden","false");
+  }
+
+  document.querySelectorAll("[data-close-modal]").forEach(el => el.addEventListener("click",()=>{
+    $("#productModal").classList.add("hidden");
+    $("#productModal").setAttribute("aria-hidden","true");
+  }));
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+  loadProducts();
+})();
+</script>
+</body>
+</html>
