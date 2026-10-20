@@ -172,3 +172,9 @@ $$;
 revoke all on function public.record_variant_sale(uuid, integer, text) from public;
 revoke all on function public.record_variant_sale(uuid, integer, text) from anon;
 grant execute on function public.record_variant_sale(uuid, integer, text) to authenticated;
+
+-- After creating the owner's user in Supabase Authentication, copy that user's UUID
+-- from the Auth users list and run this in the SQL Editor (replace the placeholder):
+-- insert into public.admins(user_id)
+-- values ('YOUR_AUTH_USER_UUID')
+-- on conflict do nothing;
