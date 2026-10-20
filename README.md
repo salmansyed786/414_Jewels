@@ -1,103 +1,41 @@
-# 414 Jewels Website + Admin Dashboard
+# 414 Jewels storefront
 
-This version is built so you do **not** have to edit HTML every time a price, product, stock count, or option changes.
+A static storefront with a Supabase-backed product catalog and admin dashboard.
 
-**FIXED VERSION:** CSS and the local site/admin JavaScript are embedded directly into each HTML file, so opening the HTML by itself will still show the full design.
+## Current launch status
 
-## What you can change from `/admin.html`
-
-- Product name
-- Category
-- SKU / item code
-- Selling price
-- Compare-at / old price
-- Description
-- Product image URL
-- Stock quantity
-- Display order
-- Gold / silver / other finishes
-- Length choices
-- Width choices
-- Ring/bangle size choices
-- Show/hide a product on the storefront
-- Mark an item featured
-- Add products
-- Delete products
-
-## Two modes are included
-
-### 1. Local demo mode (works immediately)
-Open `admin.html`.
-
-Because Supabase credentials are blank, the dashboard will offer **Local Demo Admin**.
-
-You can add/edit products and then open `index.html` in the **same browser** to see the changes.
-
-Important: Local demo mode is only for testing.
-It uses your browser's localStorage, so:
-- changes only appear on that browser/device
-- customers on other devices will NOT see them
-- there is no secure real admin login
-
-### 2. Live admin mode (the real setup)
-For the published store, connect Supabase.
-
-Supabase gives you:
-- secure email/password admin login
-- database storage
-- product changes that update the live store for everyone
-- row-level security so regular visitors cannot edit products
-
-## One-time Supabase setup
-
-1. Create a Supabase project.
-2. Open its SQL Editor.
-3. Paste and run `supabase_setup.sql`.
-4. In Supabase Authentication, create the email/password account you want to use as your admin.
-5. Copy that user's UUID.
-6. At the bottom of `supabase_setup.sql`, run the provided `insert into public.admins(...)` command using your UUID.
-7. In Supabase project settings/API, copy:
-   - Project URL
-   - Anon/public key
-8. Open `config.js` and paste them here:
-
-```js
-window.JEWELS_CONFIG = {
-  supabaseUrl: "YOUR_PROJECT_URL",
-  supabaseAnonKey: "YOUR_ANON_KEY",
-  instagramUrl: "https://instagram.com/414_jewels",
-  orderFormUrl: "https://tally.so/r/NpaoYb"
-};
-```
-
-That is the only code/config edit required for the admin backend.
-
-After that:
-- go to `/admin.html`
-- sign in
-- add/edit products
-- storefront updates from the database
+- The storefront and admin dashboard are in the repository.
+- `supabase_setup.sql` creates the product and variant tables and their access policies. It does not add demo products.
+- Product catalog, product photos, prices, stock, shipping/return terms, and contact details still need to be entered and checked by the owner.
+- The current customer path is an order request through Tally. Card checkout is not connected.
+- Cloudflare Pages deployment is not configured by this repository. See [CLOUDFLARE_SETUP.md](CLOUDFLARE_SETUP.md).
+- Follow [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) before accepting real orders.
 
 ## Files
 
-- `index.html` — customer storefront
-- `admin.html` — private admin dashboard
-- `styles.css` — shared design
-- `storefront.js` — displays products
-- `admin.js` — admin login + product editor
-- `config.js` — one-time backend configuration
-- `supabase_setup.sql` — database/security setup
+- `index.html` — storefront
+- `admin.html` — admin dashboard
+- `styles.css` — shared styles
+- `storefront.js` — catalog and product options
+- `admin.js` — admin login and catalog editor
+- `config.js` — public Supabase and contact configuration
+- `supabase_setup.sql` — idempotent database and row-level security setup
 
-## Current order flow
+## Supabase setup
 
-Instagram @414_jewels
-→ website
-→ browse products/options
-→ Order / Inquire
-→ Tally order request
-→ you confirm inventory, total, and payment
-→ fulfillment
+1. Create a Supabase project.
+2. Run the complete `supabase_setup.sql` in the SQL Editor.
+3. Create the owner's account in Supabase Authentication.
+4. Add that account's user UUID to `public.admins` using the SQL instructions in the setup file.
+5. In `config.js`, set the Supabase Project URL and publishable/anon key. These values are intended for browser use; never put a service-role key in this file.
+6. Sign into `/admin.html`, add real products, variants, prices, images, and exact stock counts, then check the storefront in a private browser window.
 
-## Important brand note
+The setup script removes no existing product data and inserts no sample products. Review the script and back up important data before applying schema changes to an existing store.
 
-Only use Cartier, Versace, or other protected brand names when the item is actually authentic and you can substantiate that claim. Otherwise use accurate generic descriptions for unbranded/inspired items.
+## Current order path
+
+Customers choose an item and submit the Tally order request. The owner must confirm exact inventory, shipping cost/timing, final total, and payment method with the customer before fulfillment. Do not describe this as instant checkout.
+
+## Brand and listing accuracy
+
+Use factual material, plating, dimensions, condition, and care details supplied by the manufacturer or verified by the owner. Do not use protected brand names or imply authenticity unless the item is authentic and the claim can be substantiated. Use only product images the business owns or is authorized to use.
