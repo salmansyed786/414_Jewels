@@ -1,23 +1,24 @@
 # Cloudflare Pages setup
 
-This repository is a static site at the repository root. The current files do not require a build command or a package install.
+This repository is a static site at the repository root. It has no framework build step and no package installation.
 
 ## Configure a preview first
 
 1. Sign in to the Cloudflare account that will own the site.
 2. Open **Workers & Pages** and create a Pages project connected to Git.
 3. Select GitHub and authorize the `salmansyed786/414_Jewels` repository.
-4. For the first review, select the `codex/launch-readiness` branch as the preview branch if Cloudflare offers branch-specific previews.
+4. Set the production branch to `main`. Keep preview deployments enabled for pull requests and other branches.
 5. Use these build settings:
    - Framework preset: **None**
-   - Build command: leave blank
-   - Build output directory: `/` (repository root; if the UI rejects this, use the documented root value shown in its current UI)
-6. Start the deployment and open the generated `pages.dev` preview.
-7. Check the storefront and `/admin.html` on mobile and desktop. Do not treat a successful static deployment as proof that Supabase, payments, or order handling are ready.
+   - Build command: `exit 0` (Cloudflare's current static HTML guide recommends this when no build step is needed)
+   - Build output directory: `.` (repository root)
+   - Root directory: leave default (repository root)
+6. Start a preview deployment from the `codex/launch-readiness` pull request and open the generated `pages.dev` preview.
+7. Check the storefront and `/admin.html` on mobile and desktop. A successful static deployment does not verify Supabase, payments, or order handling.
 
 ## Production connection
 
-Keep production pointed at the intended production branch (normally `main`). A merge to that branch can trigger a public deployment. Only merge and enable production deployment after the owner reviews the preview and explicitly approves publication.
+Keep production pointed at `main`. A merge to that branch can trigger a public deployment. Only merge and enable production deployment after the owner reviews the preview and explicitly approves publication.
 
 ## Domain and configuration
 
@@ -25,4 +26,4 @@ Keep production pointed at the intended production branch (normally `main`). A m
 - Confirm HTTPS works and test the custom domain after DNS activation.
 - The current Supabase URL and publishable/anon key live in `config.js`. Never put a Supabase service-role key, payment secret, or webhook secret in static files or Git.
 - Payment secrets belong in a server-side function's environment/secrets, not in Pages HTML or JavaScript.
-- Cloudflare Pages only serves the site. It does not configure Supabase or enable card payments by itself.
+- Cloudflare Pages serves the site. It does not configure Supabase or enable card payments by itself.
